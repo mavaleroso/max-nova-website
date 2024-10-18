@@ -17,7 +17,6 @@ import homeImage11 from "@/assets/images/DIV09320.jpg";
 import homeImage12 from "@/assets/images/DIV09339.jpg";
 import homeImage13 from "@/assets/images/DIV09467.jpg";
 import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface ImageData {
   src: StaticImageData;
@@ -111,7 +110,6 @@ function HomePage() {
   };
   return (
     <Main>
-      {/* <Image src={homeImage} alt="Home Image" className="w-screen" priority /> */}
       <div className="relative w-full mx-auto mt-4">
         <div
           className="relative h-screen group hover:-translate-y-2"
@@ -126,18 +124,6 @@ function HomePage() {
             className="rounded-xl transition-all duration-500 ease-in-out cursor-pointer w-screen"
           />
         </div>
-        {/* <button
-          className="absolute left-0 top-1/2 transform h-[459px] rounded-xl hover:bg-[#1a222f] mx-1 -mt-[10px] -translate-y-1/2 bg-[#111927] text-white p-2 group"
-          onClick={prevSlide}
-        >
-          <ChevronLeft className="text-gray-400 group-hover:text-white" />
-        </button>
-        <button
-          className="absolute right-0 top-1/2 transform h-[459px] rounded-xl hover:bg-[#1a222f] mx-1 -mt-[10px] -translate-y-1/2 bg-[#111927] text-white p-2 group"
-          onClick={nextSlide}
-        >
-          <ChevronRight className="text-gray-400 group-hover:text-white" />
-        </button> */}
         <div className="flex justify-center mt-4">
           {images.map((_, index) => (
             <div
