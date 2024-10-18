@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --background: #f9f7f4;
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   color: var(--foreground);
@@ -24,4 +24,22 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.libre-baskerville-regular {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.libre-baskerville-bold {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.libre-baskerville-regular-italic {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 400;
+  font-style: italic;
 }

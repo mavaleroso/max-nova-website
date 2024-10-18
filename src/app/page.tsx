@@ -1,101 +1,208 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Image from "next/image";
+import mainBanner from "@/assets/images/banner_image.webp";
+import mainBanner2 from "@/assets/images/banner_image2.webp";
+import mainLogo from "@/assets/images/max-and-nova-logo-circle.png";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import homeImage from "@/assets/images/DIV08314.jpg";
+import church from "@/assets/images/church.png";
+import reception from "@/assets/images/reception.png";
+
+function Main({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
+  const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number }>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const targetDate = new Date("November 30, 2024 00:00:00").getTime();
+
+    const updateTimeLeft = () => {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference <= 0) {
+        clearInterval(timer);
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      setTimeLeft({ days, hours, minutes, seconds });
+    };
+
+    const timer = setInterval(updateTimeLeft, 1000);
+
+    // Initial calculation to avoid 1 second delay
+    updateTimeLeft();
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <div className="md:container mx-auto libre-baskerville-regular">
+      <section className="md:px-24">
+        <Image src={mainBanner} alt="Banner Image Top" className="w-screen drop-shadow-2xl" priority />
+      </section>
+      <section className="text-center">
+        <div>
+          <Image
+            src={mainLogo}
+            alt="Main Logo"
+            className="w-60 max-sm:w-32 mx-auto mb-20 max-sm:mb-10 drop-shadow-lg lg:mt-[-30px]"
+            priority
+          />
+        </div>
+        <h1
+          className="leading-none my-[16px] max-sm:my-0 mx-auto drop-shadow-lg font-extrabold text-5xl max-sm:text-3xl"
+          style={{ fontWeight: "lighter", letterSpacing: "2px", paddingBottom: "15px" }}
+        >
+          MAX & NOVA
+        </h1>
+        <p
+          className="leading-normal uppercase"
+          style={{ fontSize: "17px", fontWeight: "lighter", letterSpacing: "2px", paddingBottom: "15px" }}
+        >
+          November 30, 2024 • Butuan City, Agusan Del Norte, Philippines
+        </p>
+        <div className="grid grid-cols-4 max-sm:grid-cols-2 gap-2 items-center justify-center mx-auto mt-5 mb-10 text-amber-950 w-max">
+          <div
+            className="text-center bg-slate-400 h-20 w-20 flex items-center justify-center shadow-md rounded-lg text-lg font-bold max-sm:ml-auto"
+            style={{ backgroundColor: "#fdf0d5" }}
+          >
+            <p>{`${timeLeft.days}`.padStart(2, "0")} D</p>
+          </div>
+          <div
+            className="text-center bg-slate-400 h-20 w-20 flex items-center justify-center shadow-md rounded-lg text-lg font-bold max-sm:mr-auto"
+            style={{ backgroundColor: "#fdf0d5" }}
+          >
+            {`${timeLeft.hours}`.padStart(2, "0")} H
+          </div>
+          <div
+            className="text-center bg-slate-400 h-20 w-20 flex items-center justify-center shadow-md rounded-lg text-lg font-bold max-sm:ml-auto"
+            style={{ backgroundColor: "#fdf0d5" }}
+          >
+            {`${timeLeft.minutes}`.padStart(2, "0")} M
+          </div>
+          <div
+            className="text-center bg-slate-400 h-20 w-20 flex items-center justify-center shadow-md rounded-lg text-lg font-bold max-sm:mr-auto"
+            style={{ backgroundColor: "#fdf0d5" }}
+          >
+            {`${timeLeft.seconds}`.padStart(2, "0")} S
+          </div>
+        </div>
+      </section>
+      <section>
+        <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-3 items-center">
+          <div className="w-max mx-auto">
+            <Image src={church} alt="Church" className="h-64 w-auto drop-shadow-2xl" priority />
+            <p className="text-wrap w-max my-3 text-sm font-light text-center">
+              <span className="font-bold">Saint Joseph Cathedral Diocesan Shrine</span> <br /> Ester Luna St., Butuan
+              City 1:30 PM
+            </p>
+          </div>
+          <div className="w-max mx-auto">
+            <Image src={reception} alt="Reception" className="h-52 w-auto drop-shadow-2xl" priority />
+            <p className="text-wrap w-max mb-3 mt-5 text-sm font-light text-center">
+              <span className="font-bold">Almont Inland Resort</span>
+              <br />
+              J.C. Aquino Ave., Butuan City 4:00 PM
+            </p>
+          </div>
+        </div>
+      </section>
+      <hr className="mb-10 w-[90%] block mx-auto" />
+      <section>
+        <div className="block mx-auto md:w-max mt-5">
+          <ul
+            className="flex flex-wrap gap-2 items-center justify-center leading-none"
+            style={{ fontSize: "14px", letterSpacing: "2px" }}
+          >
+            <li className="m-1 h-10">
+              <Link
+                className={`p-4 hover:border hover:border-b-slate-900 ${
+                  pathname.includes("home") && "border border-b-slate-950"
+                }`}
+                href="/home"
+              >
+                Home
+              </Link>
+            </li>
+            <li className="m-1 h-10">
+              <Link
+                className={`p-4 hover:border hover:border-b-slate-900 ${
+                  pathname.includes("entourage") && "border border-b-slate-950"
+                }`}
+                href="/entourage"
+              >
+                Entourage
+              </Link>
+            </li>
+            <li className="m-1 h-10">
+              <Link
+                className={`p-4 hover:border hover:border-b-slate-900 ${
+                  pathname.includes("details") && "border border-b-slate-950"
+                }`}
+                href="/details"
+              >
+                Details
+              </Link>
+            </li>
+            <li className="m-1 h-10">
+              <Link
+                className={`p-4 hover:border hover:border-b-slate-900 ${
+                  pathname.includes("gifts") && "border border-b-slate-950"
+                }`}
+                href="/gifts"
+              >
+                Gifts
+              </Link>
+            </li>
+            <li className="m-1 h-10">
+              <Link
+                className={`p-4 hover:border hover:border-b-slate-900 ${
+                  pathname.includes("gallary") && "border border-b-slate-950"
+                }`}
+                href="/gallary"
+              >
+                Gallery
+              </Link>
+            </li>
+            <li className="m-1 h-10">
+              <Link
+                className={`p-4 hover:border hover:border-b-slate-900 ${
+                  pathname.includes("faqs") && "border border-b-slate-950"
+                }`}
+                href="/faqs"
+              >
+                FAQS
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section className="lg:px-28 my-12 max-sm:my-6">{children}</section>
+      <section className="md:px-24 my-12">
         <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
+          src={mainBanner2}
+          alt="Banner Bottom Image"
+          className="w-screen block mx-auto drop-shadow-2xl"
           priority
         />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
     </div>
   );
 }
+
+export default Main;
