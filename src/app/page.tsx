@@ -5,7 +5,7 @@ import Main from "@/components/layouts/Main";
 const HomePage = () => {
   return (
     <Main>
-      <p>Welcome to Max and Nova's special day!</p>
+      <p>Welcome to Max and Nova special day!</p>
     </Main>
   );
 };
