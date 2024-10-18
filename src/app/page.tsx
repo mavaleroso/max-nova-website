@@ -7,7 +7,6 @@ import mainLogo from "@/assets/images/max-and-nova-logo-circle.png";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import homeImage from "@/assets/images/DIV08314.jpg";
 import church from "@/assets/images/church.png";
 import reception from "@/assets/images/reception.png";
 
