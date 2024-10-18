@@ -74,11 +74,6 @@ function HomePage() {
   // State to determine if the image is being hovered over
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
-  // Function to show the previous slide
-  const prevSlide = (): void => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-  };
-
   // Function to show the next slide
   const nextSlide = (): void => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
