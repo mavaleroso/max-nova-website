@@ -1,4 +1,4 @@
-import Main from "../page";
+import Main from "@/components/layouts/Main";
 
 function EntouragePage() {
   return (

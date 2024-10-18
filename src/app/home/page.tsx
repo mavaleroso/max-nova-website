@@ -1,6 +1,5 @@
 "use client";
 
-import Main from "../page";
 import Image, { StaticImageData } from "next/image";
 import homeImage from "@/assets/images/DIV08314.jpg";
 import homeImage1 from "@/assets/images/DIV08435.jpg";
@@ -17,6 +16,7 @@ import homeImage11 from "@/assets/images/DIV09320.jpg";
 import homeImage12 from "@/assets/images/DIV09339.jpg";
 import homeImage13 from "@/assets/images/DIV09467.jpg";
 import { useEffect, useState } from "react";
+import Main from "@/components/layouts/Main";
 
 interface ImageData {
   src: StaticImageData;
@@ -107,23 +107,21 @@ function HomePage() {
     <Main>
       <div className="relative w-full mx-auto mt-4">
         <div
-          className="relative h-screen group hover:-translate-y-2"
+          className="relative h-full group hover:-translate-y-2"
           onMouseOver={handleMouseOver}
           onMouseLeave={handleMouseLeave}
         >
           <Image
             src={images[currentIndex].src}
             alt={`Slider Image ${currentIndex + 1}`}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-xl transition-all duration-500 ease-in-out cursor-pointer w-screen"
+            className="rounded-xl  transition-all duration-500 ease-in-out cursor-pointer lg:w-[70%] mx-auto"
           />
         </div>
-        <div className="flex justify-center mt-4">
+        <div className="relative flex justify-center items-baseline">
           {images.map((_, index) => (
             <div
               key={index}
-              className={`h-1 w-10 mx-1 ${
+              className={`h-1 w-10 mx-1 mt-1 ${
                 index === currentIndex ? "bg-slate-700 rounded-xl" : "bg-gray-300 rounded-xl"
               } transition-all duration-500 ease-in-out`}
             ></div>
