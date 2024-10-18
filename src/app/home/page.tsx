@@ -114,7 +114,7 @@ function HomePage() {
           <Image
             src={images[currentIndex].src}
             alt={`Slider Image ${currentIndex + 1}`}
-            className="rounded-xl  transition-all duration-500 ease-in-out cursor-pointer lg:w-[70%] mx-auto"
+            className="lg:rounded-xl transition-all duration-500 ease-in-out cursor-pointer lg:w-[70%] mx-auto"
           />
         </div>
         <div className="relative flex justify-center items-baseline">
